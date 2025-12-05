@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Poder de Reciclar Pilas - EcoPila</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#059669',
+                        'secondary-gray': '#4b5563',
+                        'accent-yellow': '#facc15',
+                        'danger-red': '#dc2626',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Estilos del Slider */
+        .slider-container {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden; 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+            aspect-ratio: 16 / 9; 
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.5s ease-in-out; 
+            display: none; 
+        }
+
+        .slide.active {
+            display: block; 
+        }
+        
+        /* Estilos para los botones de navegación */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem; 
+            transition: 0.3s ease;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.4); 
+            border: none;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(5, 150, 105, 0.8); 
+        }
+
+        /* Estilos del resto de la página */
+        .card-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3),
+                        0 4px 6px -2px rgba(5, 150, 105, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Estilo para el overlay de la encuesta */
+        #survey-page {
+            backdrop-filter: blur(5px);
+            background-color: rgba(249, 250, 251, 0.95);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <!-- HEADER -->
+    <header class="bg-white shadow-lg sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-primary-green tracking-tight cursor-pointer">
+                <span class="text-gray-900">Eco</span>Pila
+            </h1>
+
+            <nav class="hidden md:flex space-x-8 text-secondary-gray font-medium text-sm">
+                <a href="#importancia" class="hover:text-primary-green">Contaminación</a>
+                <a href="#riesgos-salud" class="hover:text-primary-green">Salud</a>
+                <a href="#tipos-riesgos" class="hover:text-primary-green">Peligros</a>
+                <a href="#mitos" class="hover:text-primary-green">Mitos</a>
+                <a href="#proceso" class="hover:text-primary-green">Proceso</a>
+                <a href="#beneficios" class="hover:text-primary-green">Beneficios</a>
+                <a href="#contexto-legal" class="hover:text-primary-green">Contexto Global</a>
+                <a href="#como-reciclar" class="hover:text-primary-green">Guía</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO (Slider integrado aquí) -->
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <section class="grid md:grid-cols-2 gap-8 mb-20 items-center">
+            
+            <!-- Contenido Izquierdo (Texto) -->
+            <div class="p-4">
+                <h2 class="text-5xl font-extrabold mb-4 text-gray-900">El Poder de Reciclar Pilas</h2>
+                <p class="text-xl font-light text-secondary-gray">
+                    Un pequeño acto para un gran impacto: Protege nuestro planeta de los residuos tóxicos.
+                </p>
+                <a href="#contexto-legal"
+                   class="inline-block mt-6 bg-accent-yellow hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                    Conoce la Legislación
+                </a>
+            </div>
+
+            <!-- Contenido Derecho (Slider) -->
+            <div class="flex justify-center p-4">
+                <div class="slider-container">
+                    <div class="slider">
+                        <!-- Usa las rutas de tus imágenes aquí. He añadido placeholders como fallback -->
+                        <img src="imagen1.jpg" 
+                            alt="Reciclaje de Pilas" 
+                            class="slide active"
+                            onerror="this.src='https://placehold.co/600x337/059669/ffffff?text=EcoPila+1';">
+
+                        <img src="imagen2.jpg" 
+                            alt="Riesgos Ambientales" 
+                            class="slide"
+                            onerror="this.src='https://placehold.co/600x337/dc2626/ffffff?text=Contaminación+Tóxica';">
+
+                        <img src="imagen3.jpg" 
+                            alt="Proceso de Recuperación" 
+                            class="slide"
+                            onerror="this.src='https://placehold.co/600x337/facc15/000000?text=Proceso+Circular';">
+                    </div>
+
+                    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. IMPORTANCIA -->
+        <section id="importancia" class="mb-20">
+            <h3 class="text-3xl font-bold text-secondary-gray text-center border-b-2 border-primary-green pb-2 mb-8">
+                Impacto Global: ¿Qué Contaminan?
+            </h3>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-500 card-hover transition duration-300">
+                    <h4 class="text-xl font-bold text-red-700 mb-2">Mercurio (Hg)</h4>
+                    <p class="text-gray-700 text-sm">
+                        Una pila puede contaminar **600,000 litros de agua**.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-yellow-500 card-hover transition duration-300">
+                    <h4 class="text-xl font-bold text-yellow-700 mb-2">Cadmio (Cd)</h4>
+                    <p class="text-gray-700 text-sm">
+                        Cancerígeno que se acumula en el suelo y entra a los cultivos.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500 card-hover transition duration-300">
+                    <h4 class="text-xl font-bold text-blue-700 mb-2">Plomo (Pb)</h4>
+                    <p class="text-gray-700 text-sm">
+                        Afecta el desarrollo cerebral, especialmente en la infancia.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. RIESGOS A LA SALUD -->
+        <section id="riesgos-salud" class="mb-20 bg-white p-8 rounded-xl shadow-2xl border-t-4 border-danger-red">
+
+            <h3 class="text-3xl font-bold text-danger-red text-center border-b-2 border-danger-red pb-2 mb-8">
+                Riesgos Específicos a la Salud Humana
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                <div class="space-y-6">
+
+                    <div class="bg-red-50 p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-danger-red">Daño Neurológico</p>
+                        <p class="text-sm italic text-gray-700">
+                            El mercurio y el plomo afectan el sistema nervioso.
+                        </p>
+                    </div>
+
+                    <div class="bg-red-50 p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-danger-red">Problemas Renales</p>
+                        <p class="text-sm italic text-gray-700">
+                            El cadmio afecta directamente los riñones.
+                        </p>
+                    </div>
+
+                    <div class="bg-red-50 p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-danger-red">Peligro por Ingestión</p>
+                        <p class="text-sm italic text-gray-700">
+                            Las pilas de botón pueden causar quemaduras internas.
+                        </p>
+                    </div>
+
+                </div>
+
+                <img src="C:\Users\Armando\Downloads\intoxicacion_pilas.jpg"
+                    class="rounded-xl shadow-xl w-full"
+                    onerror="this.src='https://placehold.co/600x400/dc2626/fff?text=Efectos+en+la+Salud';">
+
+            </div>
+        </section>
+
+        <!-- 3. TIPOS DE PILAS -->
+        <section id="tipos-riesgos" class="mb-20 bg-gray-100 p-6 rounded-xl shadow-2xl">
+
+            <h3 class="text-3xl font-bold text-secondary-gray text-center border-b-2 border-accent-yellow pb-2 mb-8">
+                Tipos de Pilas Comunes y sus Riesgos
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                <div class="space-y-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-primary-green">Pilas Alcalinas</p>
+                        <p class="text-sm italic text-gray-700">Afectan la fertilidad del suelo.</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-primary-green">Litio</p>
+                        <p class="text-sm italic text-gray-700">Riesgo de incendio o explosión.</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-primary-green">Pilas de Botón</p>
+                        <p class="text-sm italic text-gray-700">Altamente tóxicas y peligrosas para niños.</p>
+                    </div>
+                </div>
+
+                <img src="C:\Users\Armando\Downloads\pilas.jpg"
+                    class="rounded-xl shadow-xl"
+                    onerror="this.src='https://placehold.co/600x400/facc15/000?text=Tipos+de+Pilas';">
+
+            </div>
+        </section>
+
+        <!-- 4. MITOS -->
+        <section id="mitos" class="mb-20">
+
+            <h3 class="text-3xl font-bold text-secondary-gray text-center border-b-2 border-red-500 pb-2 mb-8">
+                ¡Desmintiendo Mitos Comunes!
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <div class="space-y-6">
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-500 card-hover transition duration-300">
+                        <h4 class="text-xl font-bold text-red-700">Mito: Guardarlas en una botella es seguro</h4>
+                        <p class="text-gray-700 text-sm">
+                            Falso: La corrosión sigue ocurriendo dentro.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-500 card-hover transition duration-300">
+                        <h4 class="text-xl font-bold text-red-700">Mito: Las alcalinas no contaminan</h4>
+                        <p class="text-gray-700 text-sm">
+                            Sí contaminan al liberar zinc y manganeso.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-500 card-hover transition duration-300">
+                        <h4 class="text-xl font-bold text-red-700">Mito: Todas se reciclan igual</h4>
+                        <p class="text-gray-700 text-sm">
+                            Cada tipo requiere procesos industriales diferentes.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-xl">
+                    <img src="C:\Users\Armando\Downloads\mitos.jpg"
+                            onerror="this.src='https://placehold.co/600x400/ccfbf1/065f46?text=Mitos+vs+Realidad';">
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. PROCESO -->
+        <section id="proceso" class="mb-20 bg-primary-green p-8 rounded-xl shadow-2xl text-white">
+
+            <h3 class="text-3xl font-bold text-center border-b-2 border-white pb-2 mb-8">
+                El Proceso de Transformación
+            </h3>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-md transition duration-300 transform hover:scale-105">
+                    <div class="text-primary-green text-3xl mb-3 font-extrabold">1.</div>
+                    <h4 class="text-xl font-semibold mb-2">Colección</h4>
+                    <p class="text-gray-600 text-sm">
+                        Recolección segura en puntos autorizados.
+                    </p>
+                </div>
+
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-md transition duration-300 transform hover:scale-105">
+                    <div class="text-primary-green text-3xl mb-3 font-extrabold">2.</div>
+                    <h4 class="text-xl font-semibold mb-2">Clasificación</h4>
+                    <p class="text-gray-600 text-sm">
+                        Separación por tipo químico.
+                    </p>
+                </div>
+
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-md transition duration-300 transform hover:scale-105">
+                    <div class="text-primary-green text-3xl mb-3 font-extrabold">3.</div>
+                    <h4 class="text-xl font-semibold mb-2">Procesamiento</h4>
+                    <p class="text-gray-600 text-sm">
+                        Pirometalurgia o hidrometalurgia.
+                    </p>
+                </div>
+
+                <div class="bg-white text-gray-800 p-6 rounded-xl shadow-md transition duration-300 transform hover:scale-105">
+                    <div class="text-primary-green text-3xl mb-3 font-extrabold">4.</div>
+                    <h4 class="text-xl font-semibold mb-2">Recuperación</h4>
+                    <p class="text-gray-600 text-sm">
+                        Extracción de metales reutilizables.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 6. BENEFICIOS -->
+        <section id="beneficios" class="mb-20 bg-white p-6 rounded-xl shadow-2xl">
+
+            <h3 class="text-3xl font-bold text-secondary-gray text-center border-b-2 border-primary-green pb-2 mb-8">
+                Beneficios a Largo Plazo
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                <div class="space-y-6">
+
+                    <div class="bg-green-50 p-4 rounded-lg shadow-sm border-l-4 border-primary-green">
+                        <p class="text-primary-green"><strong>Ahorro de recursos:</strong> Se recuperan litio, cobalto y níquel.</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg shadow-sm border-l-4 border-primary-green">
+                        <p class="text-primary-green"><strong>Seguridad Ambiental:</strong> Evita la contaminación del suelo y agua.</p>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg shadow-sm border-l-4 border-primary-green">
+                        <p class="text-primary-green"><strong>Economía Circular:</strong> Se reintegran materiales en la industria.</p>
+                    </div>
+
+                </div>
+
+                <img src="C:\Users\Armando\Downloads\economia circular.jpg"
+                    class="rounded-xl shadow-xl"
+                    onerror="this.src='https://placehold.co/600x400/059669/ffffff?text=Economía+Circular';">
+
+            </div>
+        </section>
+
+        <!-- 7. CONTEXTO LEGAL -->
+        <section id="contexto-legal" class="mb-20 bg-gray-50 p-8 rounded-xl shadow-2xl border-l-4 border-accent-yellow">
+
+            <h3 class="text-3xl font-bold text-secondary-gray text-center border-b-2 border-accent-yellow pb-2 mb-8">
+                Contexto Legal y Global del Reciclaje
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                <div class="space-y-6">
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-secondary-gray">Responsabilidad Extendida</p>
+                        <p class="text-sm italic text-gray-700">
+                            Los fabricantes deben encargarse del reciclaje final.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-secondary-gray">Metas Globales</p>
+                        <p class="text-sm italic text-gray-700">
+                            La UE exige recolección del 45–65%.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <p class="text-xl font-semibold text-secondary-gray">E-Waste</p>
+                        <p class="text-sm italic text-gray-700">
+                            Las baterías modernas forman parte de los residuos electrónicos.
+                        </p>
+                    </div>
+
+                </div>
+
+                <img src="https://placehold.co/600x400/facc15/000000?text=Legislación+Ambiental"
+                    class="rounded-xl shadow-xl">
+
+            </div>
+
+        </section>
+
+        <!-- 8. CÓMO RECICLAR (SECCIÓN COMPLETADA) -->
+        <section id="como-reciclar" class="mb-20 bg-secondary-gray text-white p-8 rounded-xl shadow-2xl">
+
+            <h3 class="text-3xl font-bold text-center border-b-2 border-white pb-2 mb-8">
+                Guía Práctica: ¿Cómo Reciclar Pilas Correctamente?
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <div class="space-y-6 text-lg">
+
+                    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                        <p class="text-xl font-semibold text-accent-yellow">1. No las mezcles con basura común</p>
+                        <p class="text-sm italic text-gray-300">Evita daños en el relleno sanitario.</p>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                        <p class="text-xl font-semibold text-accent-yellow">2. Guarda las pilas en un contenedor seguro</p>
+                        <p class="text-sm italic text-gray-300">Puede ser un frasco de vidrio o bote resistente.</p>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                        <p class="text-xl font-semibold text-accent-yellow">3. Llévalas a un centro de acopio</p>
+                        <p class="text-sm italic text-gray-300">Busca puntos certificados de recolección.</p>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                        <p class="text-xl font-semibold text-accent-yellow">4. Nunca las abras o quemes</p>
+                        <p class="text-sm italic text-gray-300">Libera químicos extremadamente tóxicos.</p>
+                    </div>
+
+                </div>
+
+                <img src="https://placehold.co/600x400/4b5563/ffffff?text=Cómo+Reciclar+Pilas"
+                    class="rounded-xl shadow-xl">
+
+            </div>
+
+        </section>
+        
+        <!-- 9. ENCUESTA CALL TO ACTION -->
+        <section id="survey-cta" class="flex justify-center py-10">
+            <button id="open-survey-btn" class="bg-primary-green hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-xl transition duration-300 transform hover:scale-105 text-xl">
+                ¡Participa en nuestra Encuesta de Reciclaje!
+            </button>
+        </section>
+
+    </main>
+    
+    <!-- 
+    ======================================
+    PÁGINA DE ENCUESTA (Inicialmente oculta, simula una página nueva)
+    ======================================
+    -->
+    <section id="survey-page" class="hidden fixed inset-0 z-50 overflow-y-auto" style="backdrop-filter: blur(5px); background-color: rgba(249, 250, 251, 0.95);">
+        <div class="max-w-xl mx-auto py-12 px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
+            
+            <div id="survey-content" class="bg-white p-8 rounded-xl shadow-2xl border-t-8 border-primary-green">
+                <h2 class="text-4xl font-extrabold mb-6 text-primary-green">Formulario de Participación</h2>
+                <p class="mb-8 text-secondary-gray">Ayúdanos a mejorar nuestros puntos de acopio con tus comentarios.</p>
+
+                <form id="feedback-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                        <input type="text" id="name" name="name" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-green focus:border-primary-green">
+                    </div>
+
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Número de Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-green focus:border-primary-green">
+                    </div>
+
+                    <div>
+                        <label for="comments" class="block text-sm font-medium text-gray-700">Comentarios Adicionales</label>
+                        <textarea id="comments" name="comments" rows="4"
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-green focus:border-primary-green"></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-4">
+                        <button type="submit"
+                                class="bg-accent-yellow hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-md shadow-lg transition duration-300 transform hover:scale-105">
+                            Enviar Encuesta
+                        </button>
+                        <button type="button" id="close-survey-btn"
+                                class="text-secondary-gray hover:text-danger-red transition duration-150">
+                            Cerrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Mensaje de Confirmación (inicialmente oculto) -->
+            <div id="confirmation-message" class="hidden max-w-xl mx-auto text-center p-8 bg-green-50 border-4 border-green-400 rounded-xl mt-8 shadow-2xl">
+                <svg class="mx-auto h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <h3 class="mt-2 text-2xl font-semibold text-green-800">¡Registro Exitoso!</h3>
+                <p class="mt-1 text-sm text-green-700">Gracias por tus comentarios. Tu participación es muy valiosa para EcoPila.</p>
+                <button type="button" id="close-confirmation-btn"
+                        class="mt-4 bg-primary-green hover:bg-green-700 text-white font-bold py-2 px-6 rounded-md transition duration-300">
+                    Volver a la Página Principal
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Script del Slider y Encuesta -->
+    <script>
+    // ===================================
+    // LÓGICA DEL SLIDER
+    // ===================================
+    let slideIndex = 0; 
+    let slides;
+    const intervalTime = 5000; // 5 segundos
+
+    // Inicializa el slider y el autoplay al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        slides = document.getElementsByClassName("slide");
+        if (slides.length > 0) {
+            showSlides(slideIndex);
+            startAutoplay();
+        }
+    });
+
+    // Función para manejar el cambio de diapositiva (llamada por los botones)
+    function changeSlide(n) {
+        showSlides(slideIndex += n);
+        resetAutoplay();
+    }
+
+    // Función principal para mostrar una imagen específica
+    function showSlides(n) {
+        let i;
+        
+        // Lógica para loop (volver al inicio o al final)
+        if (n >= slides.length) {
+            slideIndex = 0; 
+        }    
+        if (n < 0) {
+            slideIndex = slides.length - 1; 
+        }
+        
+        // Oculta todas las diapositivas
+        for (i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+        }
+        
+        // Muestra la diapositiva actual
+        slides[slideIndex].classList.add('active');
+    }
+
+    // Función para el autoplay
+    let autoplayInterval;
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            showSlides(slideIndex += 1);
+        }, intervalTime);
+    }
+
+    // Reinicia el autoplay cuando el usuario interactúa manualmente
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+
+    // ===================================
+    // LÓGICA DE ENCUESTA
+    // ===================================
+    const openBtn = document.getElementById('open-survey-btn');
+    const closeBtn = document.getElementById('close-survey-btn');
+    const closeConfBtn = document.getElementById('close-confirmation-btn');
+    const surveyPage = document.getElementById('survey-page');
+    const feedbackForm = document.getElementById('feedback-form');
+    const surveyContent = document.getElementById('survey-content');
+    const confirmationMessage = document.getElementById('confirmation-message');
+
+    // Muestra la página de encuesta
+    openBtn.addEventListener('click', () => {
+        surveyPage.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+    });
+
+    // Oculta la página de encuesta y resetea el estado
+    function hideSurveyPage() {
+        surveyPage.classList.add('hidden');
+        document.body.style.overflow = ''; // Restaura el scroll
+        
+        // Asegura que el formulario esté visible y el mensaje de confirmación oculto para la próxima vez
+        surveyContent.classList.remove('hidden');
+        confirmationMessage.classList.add('hidden');
+        feedbackForm.reset(); // Limpiar el formulario al cerrar
+    }
+    
+    // Eventos de cierre
+    closeBtn.addEventListener('click', hideSurveyPage);
+    closeConfBtn.addEventListener('click', hideSurveyPage);
+
+    // Maneja el envío del formulario (simulado)
+    feedbackForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        // En un entorno real, aquí se enviarían los datos a un servidor.
+        console.log("Encuesta enviada:");
+        console.log("Nombre:", document.getElementById('name').value);
+        console.log("Teléfono:", document.getElementById('phone').value);
+        console.log("Comentarios:", document.getElementById('comments').value);
+
+        // Ocultar el formulario y mostrar el mensaje de confirmación
+        surveyContent.classList.add('hidden');
+        confirmationMessage.classList.remove('hidden');
+    });
+    </script>
+</body>
+</html>

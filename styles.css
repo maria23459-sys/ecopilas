@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: sans-serif;
+}
+
+.slider-container {
+    position: relative;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden; /* Oculta las imágenes que se salen del contenedor */
+}
+
+.slider {
+    display: flex;
+    /* Usaremos JavaScript para controlar la posición, pero este es el contenedor */
+}
+
+.slide {
+    width: 100%; /* Cada imagen ocupa el ancho completo del contenedor */
+    display: none; /* Por defecto, todas las imágenes están ocultas */
+}
+
+.slide.active {
+    display: block; /* Solo la imagen con la clase 'active' se muestra */
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos para los botones de navegación */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
